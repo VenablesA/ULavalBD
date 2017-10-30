@@ -29,7 +29,7 @@ app.get('/times', function(request, response) {
 app.get('/db', function(request, response) {
 	var MongoClient = require('mongodb').MongoClient;
 	var assert = require('assert');
-	var url = process.env.MONGOLAB_URI;
+	var url = process.env.MONGODB_URI;
 	MongoClient.connect(url, function(err, db) {
 		assert.equal(null, err);
 		console.log("Connected correctly to server.");
