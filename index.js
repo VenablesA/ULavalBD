@@ -34,7 +34,9 @@ app.get('/db', function(request, response) {
 		assert.equal(null, err);
 		console.log("Connected correctly to server.");
 		db.close();
-		response.send(db.collection('items').findOne());
+		response.send(db.collection('items', function (er, collection) {
+			collection.findOne();
+		};
 	});
 });
 
