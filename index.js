@@ -33,10 +33,25 @@ app.get('/db', function(request, response) {
 	MongoClient.connect(url, function(err, db) {
 		assert.equal(null, err);
 		console.log("Connected correctly to server.");
+		
+		db.collection('items').find().toArray(function(err, docs) {
+			var texte = "";
+			
+			for (var i = 0; i < docs.length; i++) {
+				texte += docs[i].name;
+				
+				prix = docs[i].prix;
+				if (prix != null) {
+					texte += " = " + prix + "$";
+				}
+
+				texte += "<br/>";
+			}
+			
+			response.send(texte);
+		});
+		
 		db.close();
-		response.send(db.collection('items', function (er, collection) {
-			collection.findOne();
-		};
 	});
 });
 
