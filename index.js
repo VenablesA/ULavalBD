@@ -45,7 +45,7 @@ app.get('/db', function(request, response) {
 					texte += " = " + prix + "$";
 				}
 
-				texte += "<br/>";
+				texte += "YOLO<br/>";
 			}
 			
 			response.send(texte);
