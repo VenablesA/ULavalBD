@@ -26,6 +26,18 @@ app.get('/times', function(request, response) {
   response.send(result);
 });
 
+app.get('/db', function(request, response) {
+	var MongoClient = require('mongodb').MongoClient;
+	var assert = require('assert');
+	var url = process.env.MONGOLAB_URI;
+	MongoClient.connect(url, function(err, db) {
+		assert.equal(null, err);
+		console.log("Connected correctly to server.");
+		db.close();
+		response.send("Connected correctly to server.");
+	});
+});
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
