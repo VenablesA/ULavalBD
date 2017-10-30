@@ -33,10 +33,8 @@ app.get('/db', function(request, response) {
 	MongoClient.connect(url, function(err, db) {
 		assert.equal(null, err);
 		console.log("Connected correctly to server.");
+		db.collection("items").find({}).toArray(function(err, doc) { response.send(doc)});
 		db.close();
-		response.send(db.collection('items', function (er, collection) {
-			collection.findOne();
-		};
 	});
 });
 
