@@ -43,7 +43,9 @@ app.get('/boutique', function(request, response) {
 				assert.equal(null, err);
 				response.render('pages/boutique', {
 					"items" : docs, 
-					"categories": categories.sort()
+					"categories": categories.sort(),
+					"selectedCategory": "Toutes",
+					"selectedPrice": 1
 				});
 				db.close();
 			});
@@ -64,7 +66,9 @@ app.post('/boutique', function(request, response) {
 				assert.equal(null, err);
 				response.render('pages/boutique', {
 					"items" : docs, 
-					"categories": categories.sort()
+					"categories": categories.sort(),
+					"selectedCategory": "Toutes",
+					"selectedPrice": 1
 				});
 				db.close();
 			});
