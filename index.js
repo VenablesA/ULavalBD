@@ -58,6 +58,7 @@ app.post('/boutique', function(request, response) {
 		assert.equal(null,err);
 		var coll = db.collection('items');
 		
+		
 		coll.find().toArray(function(e, docs) {
 			assert.equal(null, e);
 			console.log(docs);
@@ -67,8 +68,8 @@ app.post('/boutique', function(request, response) {
 				response.render('pages/boutique', {
 					"items" : docs, 
 					"categories": categories.sort(),
-					"selectedCategory": "Toutes",
-					"selectedPrice": 1
+					"selectedCategory": request.query.category,
+					"selectedPrice": request.query.price
 				});
 				db.close();
 			});
