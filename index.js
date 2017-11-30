@@ -15,7 +15,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-  response.render('pages/index')
+  return response.redirect('/boutique');
 });
 
 app.get('/cool', function(request, response) {
@@ -23,7 +23,7 @@ app.get('/cool', function(request, response) {
 });
 
 app.get('/times', function(request, response) {
-    var result = ''
+    var result = '';
     var times = process.env.TIMES || 5;
     for (i=0; i < times; i++)
       result += i + ' ';
@@ -44,7 +44,6 @@ app.get('/boutique', function(request, response) {
 			db.close()
 		});
 	});
-
 });
 
 app.get('/db', function(request, response) {
