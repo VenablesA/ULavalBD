@@ -90,95 +90,13 @@
                         <li>
                             <a href="referer.php?ref=achat"> Boutique</a>
                         </li>
-                        <!--<?php-->
-                        <!--if(isset($_SESSION['isAdmin'])) {-->
-                                <!--?>-->
-                        <!--<li>-->
-                            <!--<a href="referer.php?ref=panier"> Panier</a>-->
-                        <!--</li>-->
-                            <!--<?php-->
-                                <!--if ($_SESSION['isAdmin'] == 1) {-->
-                            <!--?>-->
-                        <!--<li>-->
-                            <!--<a href="administrateur.php"> Administrateur</a>-->
-                        <!--</li>-->
-                        <!--<?php-->
-                            <!--}-->
-                        <!--}-->
-                        <!--?>-->
                     </ul>
                     <ul class="nav navbar-top-links navbar-right">
-                        <!--<?php-->
-                        <!--if(isset($_SESSION['isAdmin'])) {-->
-                        <!--?>-->
-                        <!--<li>-->
-                            <!--<a href="referer.php?ref=connexion&id=1">-->
-                                <!--<i class="fa fa-sign-out"></i> Se dÃ©connecter-->
-                            <!--</a>-->
-                        <!--</li>-->
-                        <!--<?php } else{-->
-                            <!--?>-->
-                            <!--<li>-->
-                                <!--<a href="referer.php?ref=connexion">-->
-                                    <!--<i class="fa fa-sign-in"></i> Se connecter / S'inscrire-->
-                                <!--</a>-->
-                            <!--</li>-->
-                        <!--<?php } ?>-->
                     </ul>
                 </div>
             </nav>
         </div>
         <div class="wrapper wrapper-content">
-        <!--<?php-->
-<!--if(basename($_SERVER['PHP_SELF'])!= 'referer.php') {-->
-    <!--$url = "http://205.236.12.52/projet/h2017/equipe1/404.php";-->
-    <!--header('Location: '.$url);-->
-<!--}-->
-<!--$condition = false;-->
-<!--$bCategorie = false;-->
-<!--$bPrix = false;-->
-<!--if($_POST)-->
-<!--{-->
-    <!--if (isset($_POST['categorie']))-->
-    <!--{-->
-        <!--$condition = true;-->
-        <!--$categorie = $_POST['categorie'];-->
-        <!--$bCategorie = true;-->
-        <!--if ($categorie == 'Nourriture')-->
-            <!--$cCategorie = "categorie = 'Nourriture'";-->
-        <!--elseif ($categorie == 'Accessoire')-->
-            <!--$cCategorie = "categorie = 'Accessoire'";-->
-        <!--elseif ($categorie == 'Jouet')-->
-            <!--$cCategorie = "categorie = 'Jouet'";-->
-        <!--elseif ($categorie == 'Autres')-->
-            <!--$cCategorie = "categorie = 'Autres'";-->
-        <!--elseif ($categorie == 'Toutes'){-->
-            <!--$bCategorie = false;-->
-            <!--$condition = false;-->
-        <!--}-->
-
-    <!--}-->
-    <!--if (isset($_POST['prix']))-->
-    <!--{-->
-        <!--$condition = true;-->
-        <!--$prix = $_POST['prix'];-->
-        <!--$bPrix = true;-->
-        <!--if ($prix == 0)-->
-            <!--$cPrix = "prix >= 0 and prix < 25";-->
-        <!--elseif ($prix == 25)-->
-            <!--$cPrix = "prix >= 25 and prix < 50";-->
-        <!--elseif ($prix == 50)-->
-            <!--$cPrix = "prix >= 50 and prix < 100";-->
-        <!--elseif ($prix == 100)-->
-            <!--$cPrix = "prix >= 100";-->
-        <!--elseif ($prix == 1){-->
-            <!--$bPrix = false;-->
-            <!--if (!$bCategorie)-->
-                <!--$condition = false;-->
-        <!--}-->
-    <!--}-->
-<!--}-->
-<!--?>-->
 <div>
 <center>
 <h1>Boutique</h1>
@@ -194,8 +112,8 @@
                         Catégorie : <bR>
                         <select class="form-control m-b" name="category">
                             <option value="Toutes" <% if (selectedCategory == "Toutes") { %>selected <% } %>> Toutes </option>
-                            <% categories.forEach(function (cat) { %>
-                            <option value="<%= category %>" <% if (selectedCategory == cat) { %>selected <% } %>> <%= cat %> </option>
+                            <% categories.forEach(function (category) { %>
+                            <option value="<%= category %>" <% if (selectedCategory == category) { %>selected <% } %>> <%= category %> </option>
                             <% }) %>
                         </select><br>
                         <input type="radio" name="price" value="1" <% if (selectedPrice == 1){ %>checked <% } %> > Tous les prix <br>
@@ -211,23 +129,7 @@
         </div>
     </div>
     <div style="float:right;width:80%">
-        <!--<?php-->
-            <!--include("connexionBD.php");-->
-            <!--if ($condition) {-->
-                <!--$sqlCondition = true;-->
-                <!--if ($bCategorie and !$bPrix)-->
-                    <!--$sqlCondition = "where " . $cCategorie;-->
-                <!--elseif (!$bCategorie and $bPrix)-->
-                    <!--$sqlCondition = "where "  . $cPrix;-->
-                <!--elseif ($bCategorie and $bPrix)-->
-                    <!--$sqlCondition = "where " . $cCategorie . " and " . $cPrix;-->
-                <!--$sql =  'SELECT * FROM Produit ' . $sqlCondition;-->
-            <!--}-->
-            <!--else-->
-                <!--$sql =  'SELECT * FROM Produit ';-->
-        <!--?>-->
         <% items.forEach(function (item) { %>
-
 
         <div class="col-md-3">
             <div class="ibox">
