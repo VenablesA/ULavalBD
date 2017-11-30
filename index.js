@@ -30,10 +30,6 @@ app.get('/times', function(request, response) {
   response.send(result);
 });
 
-var getItems = function(db, callback){
-	db.collection('items').find().toArray();
-}
-
 app.get('/boutique', function(request, response) {
 	MongoClient.connect(url, function(err,db) {
 		assert.equal(null,err);
@@ -41,7 +37,7 @@ app.get('/boutique', function(request, response) {
 			assert.equal(null, e);
 			console.log(docs);
 			response.render('pages/boutique', {"items" : docs});
-			db.close()
+			db.close();
 		});
 	});
 });
@@ -49,11 +45,13 @@ app.get('/boutique', function(request, response) {
 app.post('/boutique', function(req, res) {
 	MongoClient.connect(url, function(err,db) {
 		assert.equal(null,err);
-		db.collection('items').find().toArray(function(e, docs) {
+		var coll = db.collection('items');
+		
+		coll.find().toArray(function(e, docs) {
 			assert.equal(null, e);
 			console.log(docs);
-			response.render('pages/boutique', {"items" : docs});
-			db.close()
+			res.render('pages/boutique', {"items" : docs});
+			db.close();
 		});
 	});
 });
