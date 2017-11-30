@@ -60,6 +60,43 @@
             </nav>
         </div>
         <div class="wrapper wrapper-content">
+    <!--<div class="alert alert-success">-->
+        <!--<center>Merci de votre visite.</center>-->
+    <!--</div>-->
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+            <h1>S'authentifier</h1><hr>
+        <div class="ibox">
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="alert alert-success">
+                        Inscription rÃ©ussie, vous pouvez maintenant vous connecter.
+                    </div>
+                    <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Se connecter</h3>
+                        <br>
+                        <form role="form" action="referer.php?ref=connexion" method="POST">
+                            <div class="form-group"><label>Nom d'utilisateur : </label> <input type="text" placeholder="Nom d'utilisateur" name="nomUtil" class="form-control" value=""></div>
+                            <div class="form-group"><label>Mot de passe : </label> <input type="password" placeholder="Mot de passe" name="mdp" class="form-control"></div>
+                            <div>
+                                <div class="alert alert-danger">
+                                    Le nom d'utilisateur ou le mot de passe est invalide.
+                                </div>
+                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Se connecter</strong></button>
+                                <label> <input type="checkbox" class="i-checks" name="souvenirMoi" value="checked" > Se souvenir de moi </label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-6"><h4>Vous n'Ãªtes pas membre</h4>
+                        <p>Vous pouvez vous crÃ©er un compte</p>
+                        <p class="text-center">
+                            <a href="referer.php?ref=inscription"><i class="fa fa-sign-in big-icon"></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
 
 
         </div>

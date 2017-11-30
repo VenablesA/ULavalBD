@@ -60,6 +60,81 @@
             </nav>
         </div>
         <div class="wrapper wrapper-content">
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h1>Inscription </h1>
+        </div>
+        <div class="ibox-content" id="validation">
+            <div class="row">
+                <form role="form" id="form" method="post">
+                    <div class="col-md-6">
+                        <div class="col-sm-12"><h2 class="m-t-none m-b">Information de connexion</h2><hr>
+                            <br>
+                                <?php if($alert) {?>
+                                <div class="alert alert-danger">
+                                    Ce nom d'utilisateur existe dÃ©ja
+                                </div>
+                                <?php } ?>
+                            <div class="form-group"><label>Nom d'utilisateur : </label> <input type="text" placeholder="Nom d'utilisateur" class="form-control" name="nomUtil" required minlength="5"></div>
+                            <div class="form-group"><label>Mot de passe : </label> <input type="password" placeholder="Mot de passe" class="form-control" name="mdp" required minlength="6" id="mdp"> </div>
+                            <div class="form-group"><label>Confirmation mot de passe : </label> <input type="password" placeholder="RÃ©inscrire le mot de passe" class="form-control" name="confirmMdp" oninput="check(this)" required minlength="6"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-sm-12"><h2 class="m-t-none m-b"> IdentitÃ©</h2><hr>
+                            <br>
+                            <div class="form-group">
+                                <label>Nom : </label>
+                                <input type="text" placeholder="Nom" class="form-control" name="nom" required minlength="3">
+                            </div>
+                            <div class="form-group">
+                                <label>PrÃ©nom : </label>
+                                <input type="text" placeholder="PrÃ©nom" class="form-control" name="prenom" required minlength="3">
+                            </div>
+                            <div class="form-group">
+                                <label>Date de naissance : </label>
+                                <input type="text" class="form-control" id="dateNaissance" placeholder="Date de naissance" name="dateNaissance" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12"><h2 class="m-t-none m-b">CoordonnÃ©es</h2><hr>
+                        <br>
+                            <div class="form-group"><label>Adresse : </label> <input type="text" placeholder="Adresse" class="form-control" name="adresse" required></div>
+                            <div class="form-group"><label>Code postal : </label> <input type="text" placeholder="Code postal" class="form-control" name="code" required maxlength="7" pattern="[a-zA-z][0-9][a-zA-z] ?[0-9][a-zA-Z][0-9]" title="Le code postal doit Ãªtre sous le format A1A 1A1"></div>
+                            <div class="form-group"><label>Ville : </label> <input type="text" placeholder="Ville" class="form-control" name="ville" required></div>
+                            <div class="form-group"><label>TÃ©lÃ©phone : </label> <input type="text" placeholder="TÃ©lÃ©phone" class="form-control" name="telephone" required maxlength="14" pattern="(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}" title="Le tÃ©lÃ©phone doit Ãªtre sous le format (999) 999-9999"></div>
+                            <div class="form-group"><label>Email : </label> <input type="email" placeholder="Email" class="form-control" name="email"></div>
+                    </div>
+                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>S'inscrire</strong></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#dateNaissance').datepicker({
+            language: 'fr',
+            autoclose: true
+        });
+    })
+</script>
+
+<script language='javascript' type='text/javascript'>
+    function check(input) {
+        if (input.value != document.getElementById('mdp').value) {
+            input.setCustomValidity('Confirmation du mot de passe invalide');
+        } else {
+            input.setCustomValidity('');
+        }
+    }
+</script>
+
 
 
         </div>
