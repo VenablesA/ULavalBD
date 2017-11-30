@@ -59,8 +59,32 @@ app.post('/boutique', function(request, response) {
 	MongoClient.connect(url, function(err,db) {
 		assert.equal(null,err);
 		var coll = db.collection('items');
+		var category = request.body.category;
+		var price = request.body.price;
+		var query = {};
 		
-		coll.find().toArray(function(e, docs) {
+		if (category != "Toutes")
+			query.category = category;
+		
+		switch (price)
+		{
+			case "0":
+				query.price = {"$lt":25};
+				break;
+				
+			case "25":
+				query.price = {"$gte":25, "$lt":50};
+				break;
+				
+			case "50":
+				query.price = {"$gte":50, "$lt":100};
+				break;
+				
+			case "100":
+				query.price = {"$gte":100};
+		}
+		
+		coll.find(query).toArray(function(e, docs) {
 			assert.equal(null, e);
 			
 			coll.distinct("category", function(err, categories) {
@@ -68,8 +92,8 @@ app.post('/boutique', function(request, response) {
 				response.render('pages/boutique', {
 					"items" : docs, 
 					"categories": categories.sort(),
-					"selectedCategory": request.body.category,
-					"selectedPrice": request.body.price
+					"selectedCategory": category,
+					"selectedPrice": price
 				});
 				db.close();
 			});
