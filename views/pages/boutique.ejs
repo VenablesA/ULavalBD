@@ -1,0 +1,280 @@
+<?php
+$destroy = false;
+session_start();
+if(isset($_GET['ref'])) {
+    $ref = $_GET['ref'];
+    if ($_GET['ref'] == 'connexion') {
+        if (isset($_GET['id'])) {
+            if ($_GET['id'] == '1') {
+                session_destroy();
+                $_SESSION = [];
+                $destroy = true;
+            }
+        }elseif (isset($_SESSION['isAdmin'])){
+            $url = "http://205.236.12.52/projet/h2017/equipe1/404.php";
+            header('Location: ' . $url);
+        }
+
+    }
+    if ($_GET['ref'] == 'panier') {
+        if (!isset($_SESSION['isAdmin'])) {
+            $url = "http://205.236.12.52/projet/h2017/equipe1/404.php";
+            header('Location: ' . $url);
+        }
+    }
+    if ($_GET['ref'] == 'inscription') {
+        if (isset($_SESSION['isAdmin'])) {
+            $url = "http://205.236.12.52/projet/h2017/equipe1/404.php";
+            header('Location: ' . $url);
+        }
+    }
+}
+else {
+    $url = "http://205.236.12.52/projet/h2017/equipe1/404.php";
+    header('Location: ' . $url);
+}
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gold-Gecko</title>
+    <link rel="icon" href="img/paw-icon.png">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
+    <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+</head>
+
+<body class="top-navigation">
+
+
+<!-- Mainly scripts -->
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="js/inspinia.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+<script src="js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<!-- Data picker -->
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+
+<div id="wrapper">
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom white-bg">
+            <nav class="navbar navbar-static-top" role="navigation">
+                <div class="navbar-header">
+                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                        <i class="fa fa-reorder"></i>
+                    </button>
+                    <a href="index.php" class="navbar-brand">Gold-Gecko</a>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="referer.php?ref=achat"> Boutique</a>
+                        </li>
+                        <li>
+                            <a href="referer.php?ref=adopter"> Animaux disponibles</a>
+                        </li>
+                        <!--<?php-->
+                        <!--if(isset($_SESSION['isAdmin'])) {-->
+                                <!--?>-->
+                        <!--<li>-->
+                            <!--<a href="referer.php?ref=panier"> Panier</a>-->
+                        <!--</li>-->
+                            <!--<?php-->
+                                <!--if ($_SESSION['isAdmin'] == 1) {-->
+                            <!--?>-->
+                        <!--<li>-->
+                            <!--<a href="administrateur.php"> Administrateur</a>-->
+                        <!--</li>-->
+                        <!--<?php-->
+                            <!--}-->
+                        <!--}-->
+                        <!--?>-->
+                    </ul>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <!--<?php-->
+                        <!--if(isset($_SESSION['isAdmin'])) {-->
+                        <!--?>-->
+                        <!--<li>-->
+                            <!--<a href="referer.php?ref=connexion&id=1">-->
+                                <!--<i class="fa fa-sign-out"></i> Se dÃ©connecter-->
+                            <!--</a>-->
+                        <!--</li>-->
+                        <!--<?php } else{-->
+                            <!--?>-->
+                            <!--<li>-->
+                                <!--<a href="referer.php?ref=connexion">-->
+                                    <!--<i class="fa fa-sign-in"></i> Se connecter / S'inscrire-->
+                                <!--</a>-->
+                            <!--</li>-->
+                        <!--<?php } ?>-->
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="wrapper wrapper-content">
+        <?php
+if(basename($_SERVER['PHP_SELF'])!= 'referer.php') {
+    $url = "http://205.236.12.52/projet/h2017/equipe1/404.php";
+    header('Location: '.$url);
+}
+$condition = false;
+$bCategorie = false;
+$bPrix = false;
+if($_POST)
+{
+    if (isset($_POST['categorie']))
+    {
+        $condition = true;
+        $categorie = $_POST['categorie'];
+        $bCategorie = true;
+        if ($categorie == 'Nourriture')
+            $cCategorie = "categorie = 'Nourriture'";
+        elseif ($categorie == 'Accessoire')
+            $cCategorie = "categorie = 'Accessoire'";
+        elseif ($categorie == 'Jouet')
+            $cCategorie = "categorie = 'Jouet'";
+        elseif ($categorie == 'Autres')
+            $cCategorie = "categorie = 'Autres'";
+        elseif ($categorie == 'Toutes'){
+            $bCategorie = false;
+            $condition = false;
+        }
+
+    }
+    if (isset($_POST['prix']))
+    {
+        $condition = true;
+        $prix = $_POST['prix'];
+        $bPrix = true;
+        if ($prix == 0)
+            $cPrix = "prix >= 0 and prix < 25";
+        elseif ($prix == 25)
+            $cPrix = "prix >= 25 and prix < 50";
+        elseif ($prix == 50)
+            $cPrix = "prix >= 50 and prix < 100";
+        elseif ($prix == 100)
+            $cPrix = "prix >= 100";
+        elseif ($prix == 1){
+            $bPrix = false;
+            if (!$bCategorie)
+                $condition = false;
+        }
+    }
+}
+?>
+<div>
+<center>
+<h1>Boutique</h1>
+</center>
+
+<div class="row">
+    <div style="float:left;width: 20%;">
+        <div style="margin-left: 50px; margin-right: 20px;">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="ibox-title">MENU RECHERCHE </div>
+                    <form role="form" method="post" action="referer.php?ref=achat">
+                        CatÃ©gorie : <bR>
+                        <select class="form-control m-b" name="categorie">
+                            <option value="Toutes" <?php if (isset($categorie))if($categorie == "Toutes") echo 'selected';?>>Toutes</option>
+                            <option value="Nourriture" <?php if (isset($categorie))if($categorie == "Nourriture") echo 'selected';?> >Nourriture</option>
+                            <option value="Accessoire" <?php if (isset($categorie))if($categorie == "Accessoire") echo 'selected';?>>Accessoire</option>
+                            <option value="Jouet" <?php if (isset($categorie))if($categorie == "Jouet") echo 'selected';?> >Jouet</option>
+                            <option value="Autres" <?php if (isset($categorie))if($categorie == "Autres") echo 'selected';?>>Autres</option>
+                        </select><br>
+                        <input type="radio" name="prix" value="1" <?php if (!isset($prix)){echo 'checked';} elseif($prix == 1){echo 'checked';}?>> Tous les prix <br>
+                        <input type="radio" name="prix" value="0" <?php if (isset($prix))if($prix == 0) echo 'checked';?>> Moins de 24,99 $<br>
+                        <input type="radio" name="prix" value="25" <?php if (isset($prix))if($prix == 25) echo 'checked';?>> Entre 25 et 49,99$<br>
+                        <input type="radio" name="prix" value="50" <?php if (isset($prix))if($prix == 50) echo 'checked';?>> Entre 50 et 99,99$<bR>
+                        <input type="radio" name="prix" value="100" <?php if (isset($prix))if($prix == 100) echo 'checked';?>> 100 $ et plus <BR><BR>
+
+                        <button class="btn btn-primary"><i class="fa fa-search"></i> Rechercher</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="float:right;width:80%">
+        <?php
+            include("connexionBD.php");
+            if ($condition) {
+                $sqlCondition = true;
+                if ($bCategorie and !$bPrix)
+                    $sqlCondition = "where " . $cCategorie;
+                elseif (!$bCategorie and $bPrix)
+                    $sqlCondition = "where "  . $cPrix;
+                elseif ($bCategorie and $bPrix)
+                    $sqlCondition = "where " . $cCategorie . " and " . $cPrix;
+                $sql =  'SELECT * FROM Produit ' . $sqlCondition;
+            }
+            else
+                $sql =  'SELECT * FROM Produit ';
+            foreach  ($pdo->query($sql) as $row) {
+        ?>
+        <div class="col-md-3">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+
+                    <div class="product-images" style="height: 200px;">
+                        <br>
+                        <?php
+                            $image = $row['image'];
+                            $id = $row['id'];
+                            echo "<a href='referer.php?ref=produit&id=$id'><img src='img/produit/$image' alt='produit' style='width: 100%; height: 100%;'/></a>";
+                        ?>
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-price">
+                            <?php
+                                echo $row['prix']. '$';
+                            ?>
+                        </span>
+                        <small class="text-muted"><?php echo $row['categorie']; ?></small>
+                        <a href="referer.php?ref=produit&id=<?php echo $row['id'] ?>" class="product-name"><?php echo $row['nom']; ?></a>
+                        <div class="m-t text-right">
+                            <a href="referer.php?ref=produit&id=<?php echo $row['id'] ?>" class="btn btn-xs btn-outline btn-primary">Informations <i class="fa fa-long-arrow-right"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+    </div>
+</div>
+</div>
+
+        </div>
+        <div class="footer">
+            <div class="pull-right">
+                Samuel Baillargeon --- Alexandre Venables
+            </div>
+            <div>
+                <strong>Copyright</strong> Gold-Gecko &copy; 2017
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
