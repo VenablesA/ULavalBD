@@ -1,5 +1,6 @@
 var cool = require('cool-ascii-faces');
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 
 var MongoClient = require('mongodb').MongoClient;
@@ -9,6 +10,8 @@ var url = process.env.MONGODB_URI;
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
@@ -37,7 +40,6 @@ app.get('/boutique', function(request, response) {
 		
 		coll.find().toArray(function(e, docs) {
 			assert.equal(null, e);
-			console.log(docs);
 			
 			coll.distinct("category", function(err, categories) {
 				assert.equal(null, err);
@@ -58,18 +60,16 @@ app.post('/boutique', function(request, response) {
 		assert.equal(null,err);
 		var coll = db.collection('items');
 		
-		
 		coll.find().toArray(function(e, docs) {
 			assert.equal(null, e);
-			console.log(docs);
 			
 			coll.distinct("category", function(err, categories) {
 				assert.equal(null, err);
 				response.render('pages/boutique', {
 					"items" : docs, 
 					"categories": categories.sort(),
-					"selectedCategory": request.query.category,
-					"selectedPrice": request.query.price
+					"selectedCategory": request.body.category,
+					"selectedPrice": request.body.price
 				});
 				db.close();
 			});
