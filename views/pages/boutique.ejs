@@ -191,19 +191,18 @@
                 <div class="ibox-content">
                     <div class="ibox-title">MENU RECHERCHE </div>
                     <form role="form" method="post" action="/boutique">
-                        CatÃ©gorie : <bR>
-                        <select class="form-control m-b" name="categorie">
-                            <option value="Toutes" <?php if (isset($categorie))if($categorie == "Toutes") echo 'selected';?>>Toutes</option>
-                            <option value="Nourriture" <?php if (isset($categorie))if($categorie == "Nourriture") echo 'selected';?> >Nourriture</option>
-                            <option value="Accessoire" <?php if (isset($categorie))if($categorie == "Accessoire") echo 'selected';?>>Accessoire</option>
-                            <option value="Jouet" <?php if (isset($categorie))if($categorie == "Jouet") echo 'selected';?> >Jouet</option>
-                            <option value="Autres" <?php if (isset($categorie))if($categorie == "Autres") echo 'selected';?>>Autres</option>
+                        Catégorie : <bR>
+                        <select class="form-control m-b" name="category">
+                            <option value="Toutes" selected> Toutes </option>
+                            <% categories.forEach(function (category) { %>
+                            <option value="<%= category %>"> <%= category %> </option>
+                            <% }) %>
                         </select><br>
-                        <input type="radio" name="prix" value="1" <?php if (!isset($prix)){echo 'checked';} elseif($prix == 1){echo 'checked';}?>> Tous les prix <br>
-                        <input type="radio" name="prix" value="0" <?php if (isset($prix))if($prix == 0) echo 'checked';?>> Moins de 24,99 $<br>
-                        <input type="radio" name="prix" value="25" <?php if (isset($prix))if($prix == 25) echo 'checked';?>> Entre 25 et 49,99$<br>
-                        <input type="radio" name="prix" value="50" <?php if (isset($prix))if($prix == 50) echo 'checked';?>> Entre 50 et 99,99$<bR>
-                        <input type="radio" name="prix" value="100" <?php if (isset($prix))if($prix == 100) echo 'checked';?>> 100 $ et plus <BR><BR>
+                        <input type="radio" name="price" value="1" checked > Tous les prix <br>
+                        <input type="radio" name="price" value="0" > Moins de 24,99 $<br>
+                        <input type="radio" name="price" value="25" > Entre 25 et 49,99$<br>
+                        <input type="radio" name="price" value="50" > Entre 50 et 99,99$<bR>
+                        <input type="radio" name="price" value="100" > 100 $ et plus <BR><BR>
 
                         <button class="btn btn-primary"><i class="fa fa-search"></i> Rechercher</button>
                     </form>
