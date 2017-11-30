@@ -1,39 +1,39 @@
-<?php
-$destroy = false;
-session_start();
-if(isset($_GET['ref'])) {
-    $ref = $_GET['ref'];
-    if ($_GET['ref'] == 'connexion') {
-        if (isset($_GET['id'])) {
-            if ($_GET['id'] == '1') {
-                session_destroy();
-                $_SESSION = [];
-                $destroy = true;
-            }
-        }elseif (isset($_SESSION['isAdmin'])){
-            $url = "http://205.236.12.52/projet/h2017/equipe1/404.php";
-            header('Location: ' . $url);
-        }
+<!--<?php-->
+<!--$destroy = false;-->
+<!--session_start();-->
+<!--if(isset($_GET['ref'])) {-->
+    <!--$ref = $_GET['ref'];-->
+    <!--if ($_GET['ref'] == 'connexion') {-->
+        <!--if (isset($_GET['id'])) {-->
+            <!--if ($_GET['id'] == '1') {-->
+                <!--session_destroy();-->
+                <!--$_SESSION = [];-->
+                <!--$destroy = true;-->
+            <!--}-->
+        <!--}elseif (isset($_SESSION['isAdmin'])){-->
+            <!--$url = "http://205.236.12.52/projet/h2017/equipe1/404.php";-->
+            <!--header('Location: ' . $url);-->
+        <!--}-->
 
-    }
-    if ($_GET['ref'] == 'panier') {
-        if (!isset($_SESSION['isAdmin'])) {
-            $url = "http://205.236.12.52/projet/h2017/equipe1/404.php";
-            header('Location: ' . $url);
-        }
-    }
-    if ($_GET['ref'] == 'inscription') {
-        if (isset($_SESSION['isAdmin'])) {
-            $url = "http://205.236.12.52/projet/h2017/equipe1/404.php";
-            header('Location: ' . $url);
-        }
-    }
-}
-else {
-    $url = "http://205.236.12.52/projet/h2017/equipe1/404.php";
-    header('Location: ' . $url);
-}
-?>
+    <!--}-->
+    <!--if ($_GET['ref'] == 'panier') {-->
+        <!--if (!isset($_SESSION['isAdmin'])) {-->
+            <!--$url = "http://205.236.12.52/projet/h2017/equipe1/404.php";-->
+            <!--header('Location: ' . $url);-->
+        <!--}-->
+    <!--}-->
+    <!--if ($_GET['ref'] == 'inscription') {-->
+        <!--if (isset($_SESSION['isAdmin'])) {-->
+            <!--$url = "http://205.236.12.52/projet/h2017/equipe1/404.php";-->
+            <!--header('Location: ' . $url);-->
+        <!--}-->
+    <!--}-->
+<!--}-->
+<!--else {-->
+    <!--$url = "http://205.236.12.52/projet/h2017/equipe1/404.php";-->
+    <!--header('Location: ' . $url);-->
+<!--}-->
+<!--?>-->
 
 <!DOCTYPE html>
 <html>
@@ -90,9 +90,6 @@ else {
                         <li>
                             <a href="referer.php?ref=achat"> Boutique</a>
                         </li>
-                        <li>
-                            <a href="referer.php?ref=adopter"> Animaux disponibles</a>
-                        </li>
                         <!--<?php-->
                         <!--if(isset($_SESSION['isAdmin'])) {-->
                                 <!--?>-->
@@ -132,56 +129,56 @@ else {
             </nav>
         </div>
         <div class="wrapper wrapper-content">
-        <?php
-if(basename($_SERVER['PHP_SELF'])!= 'referer.php') {
-    $url = "http://205.236.12.52/projet/h2017/equipe1/404.php";
-    header('Location: '.$url);
-}
-$condition = false;
-$bCategorie = false;
-$bPrix = false;
-if($_POST)
-{
-    if (isset($_POST['categorie']))
-    {
-        $condition = true;
-        $categorie = $_POST['categorie'];
-        $bCategorie = true;
-        if ($categorie == 'Nourriture')
-            $cCategorie = "categorie = 'Nourriture'";
-        elseif ($categorie == 'Accessoire')
-            $cCategorie = "categorie = 'Accessoire'";
-        elseif ($categorie == 'Jouet')
-            $cCategorie = "categorie = 'Jouet'";
-        elseif ($categorie == 'Autres')
-            $cCategorie = "categorie = 'Autres'";
-        elseif ($categorie == 'Toutes'){
-            $bCategorie = false;
-            $condition = false;
-        }
+        <!--<?php-->
+<!--if(basename($_SERVER['PHP_SELF'])!= 'referer.php') {-->
+    <!--$url = "http://205.236.12.52/projet/h2017/equipe1/404.php";-->
+    <!--header('Location: '.$url);-->
+<!--}-->
+<!--$condition = false;-->
+<!--$bCategorie = false;-->
+<!--$bPrix = false;-->
+<!--if($_POST)-->
+<!--{-->
+    <!--if (isset($_POST['categorie']))-->
+    <!--{-->
+        <!--$condition = true;-->
+        <!--$categorie = $_POST['categorie'];-->
+        <!--$bCategorie = true;-->
+        <!--if ($categorie == 'Nourriture')-->
+            <!--$cCategorie = "categorie = 'Nourriture'";-->
+        <!--elseif ($categorie == 'Accessoire')-->
+            <!--$cCategorie = "categorie = 'Accessoire'";-->
+        <!--elseif ($categorie == 'Jouet')-->
+            <!--$cCategorie = "categorie = 'Jouet'";-->
+        <!--elseif ($categorie == 'Autres')-->
+            <!--$cCategorie = "categorie = 'Autres'";-->
+        <!--elseif ($categorie == 'Toutes'){-->
+            <!--$bCategorie = false;-->
+            <!--$condition = false;-->
+        <!--}-->
 
-    }
-    if (isset($_POST['prix']))
-    {
-        $condition = true;
-        $prix = $_POST['prix'];
-        $bPrix = true;
-        if ($prix == 0)
-            $cPrix = "prix >= 0 and prix < 25";
-        elseif ($prix == 25)
-            $cPrix = "prix >= 25 and prix < 50";
-        elseif ($prix == 50)
-            $cPrix = "prix >= 50 and prix < 100";
-        elseif ($prix == 100)
-            $cPrix = "prix >= 100";
-        elseif ($prix == 1){
-            $bPrix = false;
-            if (!$bCategorie)
-                $condition = false;
-        }
-    }
-}
-?>
+    <!--}-->
+    <!--if (isset($_POST['prix']))-->
+    <!--{-->
+        <!--$condition = true;-->
+        <!--$prix = $_POST['prix'];-->
+        <!--$bPrix = true;-->
+        <!--if ($prix == 0)-->
+            <!--$cPrix = "prix >= 0 and prix < 25";-->
+        <!--elseif ($prix == 25)-->
+            <!--$cPrix = "prix >= 25 and prix < 50";-->
+        <!--elseif ($prix == 50)-->
+            <!--$cPrix = "prix >= 50 and prix < 100";-->
+        <!--elseif ($prix == 100)-->
+            <!--$cPrix = "prix >= 100";-->
+        <!--elseif ($prix == 1){-->
+            <!--$bPrix = false;-->
+            <!--if (!$bCategorie)-->
+                <!--$condition = false;-->
+        <!--}-->
+    <!--}-->
+<!--}-->
+<!--?>-->
 <div>
 <center>
 <h1>Boutique</h1>
@@ -215,50 +212,55 @@ if($_POST)
         </div>
     </div>
     <div style="float:right;width:80%">
-        <?php
-            include("connexionBD.php");
-            if ($condition) {
-                $sqlCondition = true;
-                if ($bCategorie and !$bPrix)
-                    $sqlCondition = "where " . $cCategorie;
-                elseif (!$bCategorie and $bPrix)
-                    $sqlCondition = "where "  . $cPrix;
-                elseif ($bCategorie and $bPrix)
-                    $sqlCondition = "where " . $cCategorie . " and " . $cPrix;
-                $sql =  'SELECT * FROM Produit ' . $sqlCondition;
-            }
-            else
-                $sql =  'SELECT * FROM Produit ';
-            foreach  ($pdo->query($sql) as $row) {
-        ?>
+        <!--<?php-->
+            <!--include("connexionBD.php");-->
+            <!--if ($condition) {-->
+                <!--$sqlCondition = true;-->
+                <!--if ($bCategorie and !$bPrix)-->
+                    <!--$sqlCondition = "where " . $cCategorie;-->
+                <!--elseif (!$bCategorie and $bPrix)-->
+                    <!--$sqlCondition = "where "  . $cPrix;-->
+                <!--elseif ($bCategorie and $bPrix)-->
+                    <!--$sqlCondition = "where " . $cCategorie . " and " . $cPrix;-->
+                <!--$sql =  'SELECT * FROM Produit ' . $sqlCondition;-->
+            <!--}-->
+            <!--else-->
+                <!--$sql =  'SELECT * FROM Produit ';-->
+            <!--foreach  ($pdo->query($sql) as $row) {-->
+        <!--?>-->
+        <% items.forEach(function (item) { %>
+
+
         <div class="col-md-3">
             <div class="ibox">
                 <div class="ibox-content product-box">
 
                     <div class="product-images" style="height: 200px;">
                         <br>
-                        <?php
-                            $image = $row['image'];
-                            $id = $row['id'];
-                            echo "<a href='referer.php?ref=produit&id=$id'><img src='img/produit/$image' alt='produit' style='width: 100%; height: 100%;'/></a>";
-                        ?>
+                        <!--<?php-->
+                            <!--$image = $row['image'];-->
+                            <!--$id = $row['id'];-->
+                            <a href='referer.php?ref=produit&id=<%= item._id%>'><img src='img/produit/<%= item.image %>' alt='produit' style='width: 100%; height: 100%;'/></a>
+                        <!--?>-->
+
                     </div>
                     <div class="product-desc">
                         <span class="product-price">
-                            <?php
-                                echo $row['prix']. '$';
-                            ?>
+                            <!--<?php-->
+                                <!--echo $row['prix']. '$';-->
+                            <!--?>-->
+                            <%= item.price%>
                         </span>
-                        <small class="text-muted"><?php echo $row['categorie']; ?></small>
-                        <a href="referer.php?ref=produit&id=<?php echo $row['id'] ?>" class="product-name"><?php echo $row['nom']; ?></a>
+                        <small class="text-muted"><%= items.category%></small>
+                        <a href="referer.php?ref=produit&id=<%= item._id%>" class="product-name"><%= item.name%></a>
                         <div class="m-t text-right">
-                            <a href="referer.php?ref=produit&id=<?php echo $row['id'] ?>" class="btn btn-xs btn-outline btn-primary">Informations <i class="fa fa-long-arrow-right"></i> </a>
+                            <a href="referer.php?ref=produit&id=<%= item._id%>" class="btn btn-xs btn-outline btn-primary">Informations <i class="fa fa-long-arrow-right"></i> </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <?php } ?>
+        <% })%>
     </div>
 </div>
 </div>

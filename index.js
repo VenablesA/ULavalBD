@@ -2,6 +2,10 @@ var cool = require('cool-ascii-faces');
 var express = require('express');
 var app = express();
 
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+var url = process.env.MONGODB_URI;
+
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
@@ -26,14 +30,25 @@ app.get('/times', function(request, response) {
   response.send(result);
 });
 
+var getItems = function(db, callback){
+	db.collection('items').find().toArray();
+}
+
 app.get('/boutique', function(request, response) {
-	response.render('pages/boutique')
+	var items;
+	MongoClient.connect(url, function(err,db) {
+		assert.equal(null,err);
+		// items = getItem(db, function(r) {
+		// 	res.setHeader('Content-Type', 'application/json');
+         //    res.send(JSON.stringify({'items': r}));
+         //    db.close();
+		// })
+		items = db.collection('items').find.toArray();
+	});
+	response.render('pages/boutique', {"items" : items})
 });
 
 app.get('/db', function(request, response) {
-	var MongoClient = require('mongodb').MongoClient;
-	var assert = require('assert');
-	var url = process.env.MONGODB_URI;
 	MongoClient.connect(url, function(err, db) {
 		assert.equal(null, err);
 		console.log("Connected correctly to server.");
