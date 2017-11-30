@@ -24,7 +24,7 @@ app.get('/cool', function(request, response) {
 
 app.get('/times', function(request, response) {
     var result = ''
-    var times = process.env.TIMES || 5
+    var times = process.env.TIMES || 5;
     for (i=0; i < times; i++)
       result += i + ' ';
   response.send(result);
@@ -35,17 +35,16 @@ var getItems = function(db, callback){
 }
 
 app.get('/boutique', function(request, response) {
-	var items;
 	MongoClient.connect(url, function(err,db) {
 		assert.equal(null,err);
-		// items = getItem(db, function(r) {
-		// 	res.setHeader('Content-Type', 'application/json');
-         //    res.send(JSON.stringify({'items': r}));
-         //    db.close();
-		// })
-		items = db.collection('items').find().toArray();
+		db.collection('items').find().toArray(function(e, docs) {
+			assert.equal(null, e);
+			console.log(docs);
+			response.render('pages/boutique', {"items" : docs});
+			db.close()
+		});
 	});
-	response.render('pages/boutique', {"items" : items})
+
 });
 
 app.get('/db', function(request, response) {
