@@ -43,7 +43,7 @@ app.get('/boutique', function(request, response) {
          //    res.send(JSON.stringify({'items': r}));
          //    db.close();
 		// })
-		items = db.collection('items').find.toArray();
+		items = db.collection('items').find().toArray();
 	});
 	response.render('pages/boutique', {"items" : items})
 });
