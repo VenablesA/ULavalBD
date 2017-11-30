@@ -79,11 +79,11 @@
                             <option value="<%= category %>" <% if (selectedCategory == category) { %>selected <% } %>> <%= category %> </option>
                             <% }) %>
                         </select><br>
-                        <input type="radio" name="price" value="1" <% if (selectedPrice == 1){ %> 'checked' <% } %> > Tous les prix <br>
-                        <input type="radio" name="price" value="0" > <% if (selectedPrice == 0){ %> 'checked' <% } %> Moins de 25 $<br>
-                        <input type="radio" name="price" value="25" > <% if (selectedPrice == 25){ %> 'checked' <% } %> Entre 25 et 49,99$<br>
-                        <input type="radio" name="price" value="50" > <% if (selectedPrice == 50){ %> 'checked' <% } %> Entre 50 et 99,99$<bR>
-                        <input type="radio" name="price" value="100" > <% if (selectedPrice == 100){ %> 'checked' <% } %> 100 $ et plus <BR><BR>
+                        <input type="radio" name="price" value="1" <% if (selectedPrice == 1){ %> checked="checked" <% } %> > Tous les prix <br>
+                        <input type="radio" name="price" value="0" <% if (selectedPrice == 0){ %> checked="checked" <% } %> > Moins de 25 $<br>
+                        <input type="radio" name="price" value="25" <% if (selectedPrice == 25){ %> checked="checked" <% } %> > Entre 25 et 49,99$<br>
+                        <input type="radio" name="price" value="50" <% if (selectedPrice == 50){ %> checked="checked" <% } %> > Entre 50 et 99,99$<bR>
+                        <input type="radio" name="price" value="100" <% if (selectedPrice == 100){ %> checked="checked" <% } %> > 100 $ et plus <BR><BR>
 
                         <button class="btn btn-primary"><i class="fa fa-search"></i> Rechercher</button>
                     </form>
