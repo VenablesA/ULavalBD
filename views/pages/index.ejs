@@ -1,66 +1,215 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-  <% include ../partials/header.ejs %>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Pattes-Orphelines</title>
+    <link rel="icon" href="img/paw-icon.png">
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Animation CSS -->
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
 </head>
-
-<body>
-
-  <% include ../partials/nav.ejs %>
-
-<div class="jumbotron text-center">
-  <div class="container">
-    <a href="/" class="lang-logo">
-      <img src="/lang-logo.png">
+<body id="top" class="landing-page">
+<div class="navbar-wrapper">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header navbar-right">
+                <?php
+                if(isset($_SESSION['isAdmin'])) {
+                    ?>
+                    <a class="navbar-brand" href="referer.php?ref=connexion&id=1">Se déconnecter</a>
+                    <?php
+                }
+                else{
+                    ?>
+                    <a class="navbar-brand" href="referer.php?ref=connexion">Se connecter/S'inscrire</a>
+                <?php } ?>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="index.php">Pattes-Orphelines</a></li>
+                    <li><a href="referer.php?ref=achat">Boutique</a></li>
+                    <li><a href="referer.php?ref=adopter">Animaux disponibles</a></li>
+                    <?php
+                    if(isset($_SESSION['isAdmin'])) {
+                        ?>
+                        <li><a href="referer.php?ref=panier">panier</a></li>
+                        <?php
+                        if ($_SESSION['isAdmin'] == 1) {
+                            ?>
+                            <li><a href="administrateur.php">Administrateur</a>
+                            </li>
+                            <?php
+                        }
+                    }
+                    ?>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<div id="inSlider" class="carousel carousel-fade" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#inSlider" data-slide-to="0" class="active"></li>
+        <li data-target="#inSlider" data-slide-to="1"></li>
+        <li data-target="#inSlider" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Animal trouvé?<br/>
+                        Venez nous le porter!<br/>
+                        Nous allons nous en <br/>
+                        occuper. <br/></h1>
+                </div>
+            </div>
+            <img src="img/banner-cat.jpg" alt="laptop"/>
+        </div>
+        <div class="item">
+            <div class="container">
+                <div class="carousel-caption blank">
+                    <h1>Vous chercher un nouvel <br/> ami? </h1>
+                    <p>Le refuge animal est
+                        le meilleur endroit!</p>
+                    <p><a class="btn btn-lg btn-primary" href="referer.php?ref=adopter" role="button">En savoir plus</a></p>
+                </div>
+            </div>
+            <img src="img/banner-dog.jpg" alt=chien"/>
+        </div>
+        <div class="item">
+            <div class="container">
+                <div class="carousel-caption blank">
+                    <h1>Nourriture fait maison! <br/></h1>
+                    <p>Venez découvrir notre norriture maison.</p>
+                    <p><a class="btn btn-lg btn-primary" href="referer.php?ref=achat" role="button">En savoir plus</a></p>
+                </div>
+            </div>
+            <img src="img/banner-rat.jpg" alt=chien"/>
+        </div>
+    </div>
+    <a class="right carousel-control" href="#inSlider" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Précédent</span>
     </a>
-    <h1>Getting Started with SAM!</h1>
-    <p>This is a sample Node application deployed to Heroku. It's a reasonably simple app - but a good foundation for understanding how to get the most out of the Heroku platform.</p>
-    <a type="button" class="btn btn-lg btn-default" href="https://devcenter.heroku.com/articles/getting-started-with-nodejs"><span class="glyphicon glyphicon-flash"></span> Getting Started with Node</a>
-    <a type="button" class="btn btn-lg btn-primary" href="https://github.com/heroku/node-js-getting-started"><span class="glyphicon glyphicon-download"></span> Source on GitHub</a>
-  </div>
-</div>
-<div class="container">
-  <div class="alert alert-info text-center" role="alert">
-    To deploy your own copy, and learn the fundamentals of the Heroku platform, head over to the <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs" class="alert-link">Getting Started with Node on Heroku</a> tutorial.
-  </div>
-  <hr>
-  <div class="row">
-    <div class="col-md-6">
-      <h3><span class="glyphicon glyphicon-info-sign"></span> How this sample app works</h3>
-      <ul>
-        <li>This app was deployed to Heroku, either using Git or by using <a href="https://github.com/heroku/node-js-getting-started">Heroku Button</a> on the repository.</li>
-
-        <li>When Heroku received the source code, it fetched all the dependencies in the <a href="https://github.com/heroku/node-js-getting-started/blob/master/package.json">package.json</a>, creating a deployable slug.</li>
-        <li>The platform then spins up a dyno, a lightweight container that provides an isolated environment in which the slug can be mounted and executed.</li>
-        <li>You can scale your app, manage it, and deploy over <a href="https://addons.heroku.com/">150 add-on services</a>, from the Dashboard or CLI.</li>
-      </ul>
-    </div>
-    <div class="col-md-6">
-      <h3><span class="glyphicon glyphicon-link"></span> Next Steps</h3>
-      <ul>
-        <li>If you are following the <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">Getting Started</a> guide, then please head back to the tutorial and follow the next steps!</li>
-        <li>If you deployed this app by deploying the Heroku Button, then in a command line shell, run:</li>
-        <ul>
-          <li><code>git clone https://github.com/heroku/node-js-getting-started.git</code> - this will create a local copy of the source code for the app</li>
-          <li><code>cd node-js-getting-started</code> - change directory into the local source code repository</li>
-          <li><code>heroku git:remote -a &lt;your-app-name></code> - associate the Heroku app with the repository</li>
-          <li>You'll now be set up to run the app locally, or <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs#push-local-changes">deploy changes</a> to Heroku</li>
-        </ul>
-      </ul>
-      <h3><span class="glyphicon glyphicon-link"></span> Helpful Links</h3>
-      <ul>
-        <li><a href="https://www.heroku.com/home">Heroku</a></li>
-        <li><a href="https://devcenter.heroku.com/">Heroku Dev Center</a></li>
-        <li><a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs">Getting Started with Node on Heroku</a></li>
-        <li><a href="https://devcenter.heroku.com/articles/deploying-nodejs">Deploying Node Apps on Heroku</a></li>
-      </ul>
-    </div>
-  </div> <!-- row -->
-   <div class="alert alert-info text-center" role="alert">
-    Please do work through the Getting Started guide, even if you do know how to build such an application.  The guide covers the basics of working with Heroku, and will familiarize you with all the concepts you need in order to build and deploy your own apps.
-  </div>
+    <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Suivant</span>
+    </a>
 </div>
 
+
+<section id="features" class="container services">
+    <div class="row">
+        <?php
+        include('services.txt');
+        ?>
+    </div>
+</section>
+
+<section id="team" class="gray-section team">
+    <div class="container">
+<?php include('equipes.txt')?>
+</section>
+
+<section id="testimonials" class="navy-section testimonials" style="margin-top: 0">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center wow zoomIn">
+                <i class="fa fa-comment big-icon"></i>
+                <?php
+                include('commentaire.txt');
+                ?>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer>
+    <section id="contact" class="gray-section contact">
+        <?php
+            include('nousContacter.php');
+        ?>
+    </section>
+</footer>
+
+
+<!-- Mainly scripts -->
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="js/inspinia.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+<script src="js/plugins/wow/wow.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+    $('body').scrollspy({
+    target: '.navbar-fixed-top',
+    offset: 80
+    });
+
+    // Page scrolling feature
+    $('a.page-scroll').bind('click', function(event) {
+    var link = $(this);
+    $('html, body').stop().animate({
+    scrollTop: $(link.attr('href')).offset().top - 50
+    }, 500);
+    event.preventDefault();
+    $("#navbar").collapse('hide');
+    });
+    });
+
+    // Activate WOW.js plugin for animation on scrol
+    new WOW().init();
+
+    var cbpAnimatedHeader = (function() {
+        var docElem = document.documentElement,
+            header = document.querySelector( '.navbar-default' ),
+            didScroll = false,
+            changeHeaderOn = 200;
+        function init() {
+            window.addEventListener( 'scroll', function( event ) {
+                if( !didScroll ) {
+                    didScroll = true;
+                    setTimeout( scrollPage, 250 );
+                }
+            }, false );
+        }
+        function scrollPage() {
+            var sy = scrollY();
+            if ( sy >= changeHeaderOn ) {
+                $(header).addClass('navbar-scroll')
+            }
+            else {
+                $(header).removeClass('navbar-scroll')
+            }
+            didScroll = false;
+        }
+        function scrollY() {
+            return window.pageYOffset || docElem.scrollTop;
+        }
+        init();
+
+    })();
+</script>
 
 </body>
 </html>
