@@ -33,16 +33,27 @@ app.get('/times', function(request, response) {
 app.get('/boutique', function(request, response) {
 	MongoClient.connect(url, function(err,db) {
 		assert.equal(null,err);
-		db.collection('items').find().toArray(function(e, docs) {
+		var coll = db.collection('items');
+		
+		coll.find().toArray(function(e, docs) {
 			assert.equal(null, e);
 			console.log(docs);
-			response.render('pages/boutique', {"items" : docs});
-			db.close();
+			
+			coll.distinct("category", function(err, categories) {
+				assert.equal(null, err);
+				response.render('pages/boutique', {
+					"items" : docs, 
+					"categories": categories.sort(),
+					"selectedCategory": "Toutes",
+					"selectedPrice": 1
+				});
+				db.close();
+			});
 		});
 	});
 });
 
-app.post('/boutique', function(req, res) {
+app.post('/boutique', function(request, response) {
 	MongoClient.connect(url, function(err,db) {
 		assert.equal(null,err);
 		var coll = db.collection('items');
@@ -50,8 +61,17 @@ app.post('/boutique', function(req, res) {
 		coll.find().toArray(function(e, docs) {
 			assert.equal(null, e);
 			console.log(docs);
-			res.render('pages/boutique', {"items" : docs});
-			db.close();
+			
+			coll.distinct("category", function(err, categories) {
+				assert.equal(null, err);
+				response.render('pages/boutique', {
+					"items" : docs, 
+					"categories": categories.sort(),
+					"selectedCategory": "Toutes",
+					"selectedPrice": 1
+				});
+				db.close();
+			});
 		});
 	});
 });
