@@ -46,6 +46,10 @@ app.get('/boutique', function(request, response) {
 	});
 });
 
+app.post('/boutique', function(req, res) {
+	
+});
+
 app.get('/db', function(request, response) {
 	MongoClient.connect(url, function(err, db) {
 		assert.equal(null, err);
