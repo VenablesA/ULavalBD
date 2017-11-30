@@ -48,7 +48,15 @@ app.get('/boutique', function(request, response) {
 });
 
 app.post('/boutique', function(req, res) {
-	
+	MongoClient.connect(url, function(err,db) {
+		assert.equal(null,err);
+		db.collection('items').find().toArray(function(e, docs) {
+			assert.equal(null, e);
+			console.log(docs);
+			response.render('pages/boutique', {"items" : docs});
+			db.close()
+		});
+	});
 });
 
 app.get('/db', function(request, response) {
