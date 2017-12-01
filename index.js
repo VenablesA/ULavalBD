@@ -109,7 +109,6 @@ app.get('/produit', function(request, response) {
 		var id = new ObjectID(request.query.id);
 		coll.findOne({"_id":id}, function(err, doc) {
 			assert.equal(null, err);
-			console.log(doc);
 			response.render('pages/produit', {"item": doc});
 			db.close();
 		});
