@@ -55,6 +55,9 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <a href="connexion.ejs"> Connexion</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -74,7 +77,7 @@
                     </div>
                     <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Se connecter</h3>
                         <br>
-                        <form role="form" action="referer.php?ref=connexion" method="POST">
+                        <form role="form" action="/connexion" method="POST">
                             <div class="form-group"><label>Nom d'utilisateur : </label> <input type="text" placeholder="Nom d'utilisateur" name="nomUtil" class="form-control" value=""></div>
                             <div class="form-group"><label>Mot de passe : </label> <input type="password" placeholder="Mot de passe" name="mdp" class="form-control"></div>
                             <div>
@@ -82,14 +85,14 @@
                                     Le nom d'utilisateur ou le mot de passe est invalide.
                                 </div>
                                 <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Se connecter</strong></button>
-                                <label> <input type="checkbox" class="i-checks" name="souvenirMoi" value="checked" > Se souvenir de moi </label>
+                                <!--<label> <input type="checkbox" class="i-checks" name="souvenirMoi" value="checked" > Se souvenir de moi </label>-->
                             </div>
                         </form>
                     </div>
-                    <div class="col-sm-6"><h4>Vous n'Ãªtes pas membre</h4>
-                        <p>Vous pouvez vous crÃ©er un compte</p>
+                    <div class="col-sm-6"><h4>Vous n'êtes pas membre</h4>
+                        <p>Vous pouvez vous créer un compte</p>
                         <p class="text-center">
-                            <a href="referer.php?ref=inscription"><i class="fa fa-sign-in big-icon"></i></a>
+                            <a href="inscription"><i class="fa fa-sign-in big-icon"></i></a>
                         </p>
                     </div>
                 </div>
