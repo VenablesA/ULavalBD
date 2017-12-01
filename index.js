@@ -101,6 +101,10 @@ app.post('/boutique', function(request, response) {
 	});
 });
 
+app.get('/connexion', function(request, response) {
+	response.render('pages/connexion');
+});
+
 app.get('/db', function(request, response) {
 	MongoClient.connect(url, function(err, db) {
 		assert.equal(null, err);
