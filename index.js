@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var app = express();
 
 var MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
 var assert = require('assert');
 var url = process.env.MONGODB_URI;
 
@@ -97,6 +98,20 @@ app.post('/boutique', function(request, response) {
 				});
 				db.close();
 			});
+		});
+	});
+});
+
+app.get('/produit', function(request, response) {
+	MongoClient.connect(url, function(err, db) {
+		assert.equal(null, err);
+		var coll = db.collection('items');
+		var id = new ObjectID(request.query.id);
+		coll.findOne({"_id":id}, function(err, doc) {
+			assert.equal(null, err);
+			console.log(doc);
+			response.render('pages/produit', {"item": doc});
+			db.close();
 		});
 	});
 });
