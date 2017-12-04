@@ -136,7 +136,7 @@ app.post('/connexion', function(request, response){
 });
 
 app.get('/inscription', function(request, response) {
-	response.render('pages/inscription');
+	response.render('pages/inscription', {"message" : ""});
 });
 
 app.get('/db', function(request, response) {
