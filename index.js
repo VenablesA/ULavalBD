@@ -119,7 +119,7 @@ app.get('/produit', function(request, response) {
 });
 
 app.get('/connexion', function(request, response) {
-	response.render('pages/connexion');
+	response.render('pages/connexion', {"message" : ""});
 });
 
 app.post('/connexion', function(request, response){
@@ -129,7 +129,7 @@ app.post('/connexion', function(request, response){
 		var email = request.query.email;
 		coll.findOne({"email" : email}, function(err,doc) {
 			assert.equal(null, err);
-			response.render('pages/login');
+			response.render('pages/connexion', {"message" : ""});
 			db.close()
 		})
 	})

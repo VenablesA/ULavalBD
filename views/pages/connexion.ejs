@@ -81,7 +81,7 @@
                             <div class="form-group"><label>Adresse courriel : </label> <input type="text" placeholder="Nom d'utilisateur" name="email" class="form-control" value=""></div>
                             <div class="form-group"><label>Mot de passe : </label> <input type="password" placeholder="Mot de passe" name="pwd" class="form-control"></div>
                             <div>
-                                <% if (error = "InvalidUserPass") { %>
+                                <% if (message == "InvalidUserPass") { %>
                                     <div class="alert alert-danger">
                                         Le nom d'utilisateur ou le mot de passe est invalide.
                                     </div>
