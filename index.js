@@ -121,6 +121,19 @@ app.get('/connexion', function(request, response) {
 	response.render('pages/connexion');
 });
 
+app.post('/connexion', function(request, response){
+	MongoClient.connect(url, function(err,db) {
+		assert.equal(null, err);
+		var coll = db.collection('users');
+		var email = request.query.email;
+		coll.findOne({"email" : email}, function(err,db) {
+			assert.equal(null, err);
+			response.render('pages/login');
+			db.close()
+		})
+	})
+});
+
 app.get('/inscription', function(request, response) {
 	response.render('pages/inscription');
 });
