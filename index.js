@@ -1,6 +1,7 @@
 var cool = require('cool-ascii-faces');
 var express = require('express');
 var session = require('express');
+var md5 = require('md5');
 var bodyParser = require('body-parser');
 var app = express();
 
@@ -126,7 +127,7 @@ app.post('/connexion', function(request, response){
 		assert.equal(null, err);
 		var coll = db.collection('users');
 		var email = request.query.email;
-		coll.findOne({"email" : email}, function(err,db) {
+		coll.findOne({"email" : email}, function(err,doc) {
 			assert.equal(null, err);
 			response.render('pages/login');
 			db.close()
