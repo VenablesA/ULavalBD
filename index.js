@@ -52,11 +52,16 @@ app.get('/boutique', function(request, response) {
 		coll.find().toArray(function(e, docs) {
 			assert.equal(null, e);
 			
-			coll.distinct("category", function(err, categories) {
+			coll.aggregate([
+				{$match:{}},
+				{$group:{_id:"$category", count:{$sum:1}}},
+				{$project:{"_id":0, "category":"$_id", "count":1}},
+				{$sort:{"category":1}}
+			]).toArray(function(err, categories) {
 				assert.equal(null, err);
 				response.render('pages/boutique', {
 					"items" : docs, 
-					"categories": categories.sort(),
+					"categories": categories,
 					"selectedCategory": "Toutes",
 					"selectedPrice": 1
 				});
@@ -98,11 +103,16 @@ app.post('/boutique', function(request, response) {
 		coll.find(query).toArray(function(e, docs) {
 			assert.equal(null, e);
 			
-			coll.distinct("category", function(err, categories) {
+			coll.aggregate([
+				{$match:{}},
+				{$group:{_id:"$category", count:{$sum:1}}},
+				{$project:{"_id":0, "category":"$_id", "count":1}},
+				{$sort:{"category":1}}
+			]).toArray(function(err, categories) {
 				assert.equal(null, err);
 				response.render('pages/boutique', {
 					"items" : docs, 
-					"categories": categories.sort(),
+					"categories": categories,
 					"selectedCategory": category,
 					"selectedPrice": price
 				});
