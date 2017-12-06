@@ -125,7 +125,7 @@
                                     <input class="qtyTouch" type="text" id="qty" name="qty">
                                     </div>
                                     <div class="btn-group">
-                                        <button class="btn btn-primary" <% if(!(- session)) { %> disabled <% } %>><i class="fa fa-cart-plus"></i> Acheter</button>
+                                        <button class="btn btn-primary" <% if(!(- session) || item.quantity == 0) { %> disabled <% } %>><i class="fa fa-cart-plus"></i> Acheter</button>
                                     </div>
                                 </form>
                             </div>
