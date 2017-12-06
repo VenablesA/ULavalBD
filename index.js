@@ -188,6 +188,40 @@ app.get('/inscription', function(request, response) {
 	response.render('pages/inscription', {"message" : ""});
 });
 
+app.post('/inscription', function(request, response) {
+	MongoClient.connect(url, function(err, db) {
+		assert.equal(null, err);
+		var coll = db.collection('users');
+		var email = request.body.email;
+		
+		coll.findOne({"email":email}, function(err, doc) {
+			if (doc)
+				response.render('pages/inscription', {"message":"AlreadyUsed"});
+			else {
+				coll.insertOne({
+					"email":email,
+					"password":request.body.pwd,
+					"name":{
+						"firstName":request.body.firstName,
+						"lastName":request.body.lastName
+					},
+					"address":{
+						"number":request.body.number,
+						"street":request.body.street,
+						"city":request.body.city,
+						"country":request.body.country,
+						"postalCode":request.body.code
+					}
+				}, function(err, result) {
+					assert.equal(null, err);
+					response.render('pages/connexion', {"message":"Inscription"});
+				});
+			}
+		});
+		db.close();
+	});
+});
+
 app.get('/db', function(request, response) {
 	MongoClient.connect(url, function(err, db) {
 		assert.equal(null, err);
