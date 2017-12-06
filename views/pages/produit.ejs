@@ -122,7 +122,7 @@
                                 <form role="form" method="post" action="achat">
                                     <div class="col-md-3">
                                         <input type="hidden" id="<%= item._id%>">
-                                    <input class="qteTouch" type="text" id="qte" name="qte">
+                                    <input class="qtyTouch" type="text" id="qty" name="qty">
                                     </div>
                                     <div class="btn-group">
                                         <button class="btn btn-primary" <% if(!(- session)) { %> disabled <% } %>><i class="fa fa-cart-plus"></i> Acheter</button>
@@ -139,16 +139,16 @@
     </div>
 </div>
 <script>
-    var maxQte = <%= JSON.stringify(item.quantity); %>;
-    var minQte = 1;
-    if (maxQte == 0)
-        minQte = 0;
+    var maxQty = <%= JSON.stringify(item.quantity); %>;
+    var minQty = 1;
+    if (maxQty == 0)
+        minQty = 0;
 
-    $(".qteTouch").TouchSpin({
+    $(".qtyTouch").TouchSpin({
         buttondown_class: 'btn btn-primary',
         buttonup_class: 'btn btn-primary',
-        min : minQte,
-        max: maxQte,
+        min : minQty,
+        max: maxQty,
         initval : 1
     });
 </script>
