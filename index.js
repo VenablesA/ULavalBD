@@ -21,6 +21,11 @@ app.use(session({secret: 'MagicMike'}));
 app.use(function(req, res, next) {
   res.locals.email = req.session.email;
   res.locals.name = req.session.name;
+  if(req.session.name){
+  	res.locals.session = true;
+  }else {
+  	res.locals.session = false;
+  }
   next();
 });
 

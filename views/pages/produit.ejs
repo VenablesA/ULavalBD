@@ -55,12 +55,12 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-top-links navbar-right">
-                        Bonjour <% if(- name) { %> !
+                        <% if(!(- session)) { %>
                         <li>
                             <a href="connexion"> Connexion</a>
                         </li>
                         <% }else { %>
-                        <%- name %>
+                        Bonjour <%- name %> !
                         <li>
                             <a href="logout">
                                 <i class="fa fa-sign-out"></i> Se déconnecter
@@ -124,7 +124,7 @@
                                     <input class="qteTouch" type="text" id="qte" name="qte">
                                     </div>
                                     <div class="btn-group">
-                                        <button class="btn btn-primary" <% if(!(- name)) { %> disabled <% } %>><i class="fa fa-cart-plus"></i> Acheter</button>
+                                        <button class="btn btn-primary" <% if(!(- session)) { %> disabled <% } %>><i class="fa fa-cart-plus"></i> Acheter</button>
                                     </div>
                                 </form>
                             </div>

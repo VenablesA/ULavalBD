@@ -55,7 +55,12 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-top-links navbar-right">
-                        <% if(- name == undefined) { %>
+                        <% if(message == "Logout") { %>
+                        <li>
+                            <a href="connexion"> Connexion</a>
+                        </li>
+                        <% }else{ %>
+                        <% if(!(- session)) { %>
                         <li>
                             <a href="connexion"> Connexion</a>
                         </li>
@@ -66,7 +71,7 @@
                                 <i class="fa fa-sign-out"></i> Se déconnecter
                             </a>
                         </li>
-                        <% } %>
+                        <% }} %>
                     </ul>
                 </div>
             </nav>
