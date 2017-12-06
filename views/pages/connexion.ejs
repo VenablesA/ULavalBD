@@ -63,18 +63,22 @@
             </nav>
         </div>
         <div class="wrapper wrapper-content">
-    <!--<div class="alert alert-success">-->
-        <!--<center>Merci de votre visite.</center>-->
-    <!--</div>-->
+    <% if (message == "Logout") { %>
+        <div class="alert alert-success">
+            <center>Merci de votre visite.</center>
+        </div>
+    <% } %>
     <div class="col-md-2"></div>
     <div class="col-md-8">
             <h1>S'authentifier</h1><hr>
         <div class="ibox">
             <div class="ibox-content">
                 <div class="row">
-                    <!--<div class="alert alert-success">-->
-                        <!--Inscription réussie, vous pouvez maintenant vous connecter.-->
-                    <!--</div>-->
+                    <% if (message == "Inscription") { %>
+                        <div class="alert alert-success">
+                            Inscription réussie, vous pouvez maintenant vous connecter.
+                        </div>
+                    <% } %>
                     <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Se connecter</h3>
                         <br>
                         <form role="form" action="/connexion" method="POST">
