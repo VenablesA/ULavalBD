@@ -156,7 +156,7 @@ app.post('/connexion', function(request, response){
 			if (doc){
 				sess = request.session;
 				sess.email = doc.email;
-				sess.name = doc.name.firstname + " " + doc.name.lastname;
+				sess.name = doc.name.firstName + " " + doc.name.lastName;
 				response.redirect('/boutique');
 			}
 			else{

@@ -55,9 +55,18 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-top-links navbar-right">
+                        <% if(- name == undefined) { %>
                         <li>
-                            <a href="connexion.ejs"> Connexion</a>
+                            <a href="connexion"> Connexion</a>
                         </li>
+                        <% }else { %>
+                        Bonjour <%- name %> !
+                        <li>
+                            <a href="logout">
+                                <i class="fa fa-sign-out"></i> Se déconnecter
+                            </a>
+                        </li>
+                        <% } %>
                     </ul>
                 </div>
             </nav>
