@@ -75,6 +75,8 @@
                 <div class="ibox-content">
                     <div class="ibox-title">MENU RECHERCHE </div>
                     <form role="form" method="post" action="/boutique">
+                        Recherche : <br>
+                        <input type="text" name="search"  class="form-control" placeholder="Item à rechercher"><br>
                         Catégorie : <bR>
                         <select class="form-control m-b" name="category">
                             <option value="Toutes" <% if (selectedCategory == "Toutes") { %>selected <% } %>> Toutes </option>

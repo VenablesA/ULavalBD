@@ -1,5 +1,7 @@
 var cool = require('cool-ascii-faces');
 var express = require('express');
+var session = require('express');
+var md5 = require('md5');
 var bodyParser = require('body-parser');
 var app = express();
 
@@ -13,6 +15,7 @@ app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+app.use(session({secret: 'MagicMike'}));
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
@@ -126,11 +129,24 @@ app.get('/produit', function(request, response) {
 });
 
 app.get('/connexion', function(request, response) {
-	response.render('pages/connexion');
+	response.render('pages/connexion', {"message" : ""});
+});
+
+app.post('/connexion', function(request, response){
+	MongoClient.connect(url, function(err,db) {
+		assert.equal(null, err);
+		var coll = db.collection('users');
+		var email = request.query.email;
+		coll.findOne({"email" : email}, function(err, doc) {
+			assert.equal(null, err);
+			response.render('pages/connexion', {"message" : ""});
+			db.close()
+		})
+	})
 });
 
 app.get('/inscription', function(request, response) {
-	response.render('pages/inscription');
+	response.render('pages/inscription', {"message" : ""});
 });
 
 app.get('/db', function(request, response) {
