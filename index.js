@@ -62,6 +62,7 @@ app.get('/boutique', function(request, response) {
 				response.render('pages/boutique', {
 					"items" : docs, 
 					"categories": categories,
+					"search":"",
 					"selectedCategory": "Toutes",
 					"selectedPrice": 1
 				});
@@ -77,7 +78,11 @@ app.post('/boutique', function(request, response) {
 		var coll = db.collection('items');
 		var category = request.body.category;
 		var price = request.body.price;
+		var search = request.body.search;
 		var query = {};
+		
+		if (search)
+			query["$text"] = {$search:search};
 		
 		if (category != "Toutes")
 			query.category = category;
@@ -113,6 +118,7 @@ app.post('/boutique', function(request, response) {
 				response.render('pages/boutique', {
 					"items" : docs, 
 					"categories": categories,
+					"search":search,
 					"selectedCategory": category,
 					"selectedPrice": price
 				});
