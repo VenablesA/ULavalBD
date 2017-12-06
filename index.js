@@ -127,7 +127,7 @@ app.post('/connexion', function(request, response){
 		assert.equal(null, err);
 		var coll = db.collection('users');
 		var email = request.query.email;
-		coll.findOne({"email" : email}, function(err,doc) {
+		coll.findOne({"email" : email}, function(err, doc) {
 			assert.equal(null, err);
 			response.render('pages/connexion', {"message" : ""});
 			db.close()
