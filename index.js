@@ -1,6 +1,6 @@
 var cool = require('cool-ascii-faces');
 var express = require('express');
-var session = require('express');
+var session = require('express-session');
 var md5 = require('md5');
 var bodyParser = require('body-parser');
 var app = express();
@@ -9,6 +9,7 @@ var MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 var assert = require('assert');
 var url = process.env.MONGODB_URI;
+var sess;
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -16,6 +17,12 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(session({secret: 'MagicMike'}));
+
+app.use(function(req, res, next) {
+  res.locals.email = req.session.email;
+  res.locals.name = req.session.name;
+  next();
+});
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
@@ -126,13 +133,33 @@ app.post('/connexion', function(request, response){
 	MongoClient.connect(url, function(err,db) {
 		assert.equal(null, err);
 		var coll = db.collection('users');
-		var email = request.query.email;
-		coll.findOne({"email" : email}, function(err, doc) {
+		var email = request.body.email;
+		var pwd = md5(request.body.pwd);
+		coll.findOne({"email" : email, "password" : pwd}, function(err, doc) {
 			assert.equal(null, err);
-			response.render('pages/connexion', {"message" : ""});
+			if (doc){
+				sess = request.session;
+				sess.email = doc.email;
+				sess.name = doc.name.firstname + " " + doc.name.lastname;
+				response.redirect('/boutique');
+			}
+			else{
+				response.render('pages/connexion', {"message" : "InvalidUserPass"});
+			}
 			db.close()
 		})
 	})
+});
+
+app.get('/logout', function(request, response) {
+	request.session.destroy(function(err) {
+		if(err) {
+		  console.log(err);
+		}
+		else {
+		  response.render('pages/connexion', {"message" : "Logout"});
+		}
+	});
 });
 
 app.get('/inscription', function(request, response) {
@@ -143,7 +170,6 @@ app.get('/db', function(request, response) {
 	MongoClient.connect(url, function(err, db) {
 		assert.equal(null, err);
 		console.log("Connected correctly to server.");
-		
 		db.collection('items').find().toArray(function(err, docs) {
 			var texte = "";
 			
