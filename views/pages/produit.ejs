@@ -119,8 +119,9 @@
                             <hr>
 
                             <div>
-                                <form role="form" method="post" action="produit&id=<% item._id%>">
+                                <form role="form" method="post" action="achat">
                                     <div class="col-md-3">
+                                        <input type="hidden" id="<%= item._id%>">
                                     <input class="qteTouch" type="text" id="qte" name="qte">
                                     </div>
                                     <div class="btn-group">
