@@ -54,11 +54,13 @@ app.get('/boutique', function(request, response) {
 		assert.equal(null,err);
 		var coll = db.collection('items');
 		
-		coll.find().toArray(function(e, docs) {
+		coll.find({
+			"quantity":{$gt:0}
+		}).toArray(function(e, docs) {
 			assert.equal(null, e);
 			
 			coll.aggregate([
-				{$match:{}},
+				{$match:{"quantity":{$gt:0}}},
 				{$group:{_id:"$category", count:{$sum:1}}},
 				{$project:{"_id":0, "category":"$_id", "count":1}},
 				{$sort:{"category":1}}
@@ -84,7 +86,7 @@ app.post('/boutique', function(request, response) {
 		var category = request.body.category;
 		var price = request.body.price;
 		var search = request.body.search;
-		var query = {};
+		var query = {"quantity":{$gt:0}};
 		var aggregation = [{"$match":{}}];
 		
 		if (search)
@@ -120,7 +122,7 @@ app.post('/boutique', function(request, response) {
 			assert.equal(null, e);
 			
 			coll.aggregate([
-				{$match:{}},
+				{$match:{"quantity":{$gt:0}}},
 				{$group:{_id:"$category", count:{$sum:1}}},
 				{$project:{"_id":0, "category":"$_id", "count":1}},
 				{$sort:{"category":1}}
