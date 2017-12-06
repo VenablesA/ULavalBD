@@ -152,6 +152,35 @@ app.get('/produit', function(request, response) {
 	});
 });
 
+app.post('/achat', function(request, response) {
+	MongoClient.connect(url, function(err, db) {
+		assert.equal(null, err);
+		var email = request.session.email;
+		var itemID = new ObjectID(request.body.id);
+		var quantityBought = parseInt(request.body.qty);
+		var collItems = db.collection('items');
+		var collUsers = db.collection('users');
+		
+		collUsers.findOne({"email":email}, function(err, user) {
+			assert.equal(null, err);
+			
+			collItems.findOne({"_id":itemID}, function(err, item) {
+				collItems.updateOne({"_id":itemID}, {
+					$inc:{"quantity":-quantityBought}
+				}, function(err, results) {
+					assert.equal(null, err);
+					response.render('pages/achat', {
+						"item":item, 
+						"user":user, 
+						"qty":quantityBought
+						});
+					db.close();
+				});
+			});
+		});
+	});
+});
+
 app.get('/connexion', function(request, response) {
 	response.render('pages/connexion', {"message" : ""});
 });
@@ -205,7 +234,7 @@ app.post('/inscription', function(request, response) {
 			else {
 				coll.insertOne({
 					"email":email,
-					"password":request.body.pwd,
+					"password":md5(request.body.pwd),
 					"name":{
 						"firstName":request.body.firstName,
 						"lastName":request.body.lastName
@@ -220,10 +249,10 @@ app.post('/inscription', function(request, response) {
 				}, function(err, result) {
 					assert.equal(null, err);
 					response.render('pages/connexion', {"message":"Inscription"});
+					db.close();
 				});
 			}
 		});
-		db.close();
 	});
 });
 
