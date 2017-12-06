@@ -55,12 +55,12 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-top-links navbar-right">
-                        Bonjour <% if(- name) { %> !
+                        <% if(!(- session)) { %>
                         <li>
                             <a href="connexion"> Connexion</a>
                         </li>
                         <% }else { %>
-                        <%- name %>
+                        Bonjour <%- name %> !
                         <li>
                             <a href="logout">
                                 <i class="fa fa-sign-out"></i> Se déconnecter
@@ -87,7 +87,7 @@
                             <br>
                                 <% if(message == "AlreadyUsed") { %>
                                 <div class="alert alert-danger">
-                                    Ce nom d'utilisateur existe déja
+                                    Ce courriel est déjà utilisé
                                 </div>
                                 <% } %>
                             <div class="form-group"><label>Adresse courriel : </label> <input type="email" placeholder="Adresse courriel" class="form-control" name="email" required minlength="5"></div>
