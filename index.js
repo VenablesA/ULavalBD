@@ -80,9 +80,13 @@ app.post('/boutique', function(request, response) {
 		var price = request.body.price;
 		var search = request.body.search;
 		var query = {};
+		var aggregation = [{"$match":{}}];
 		
 		if (search)
+		{
 			query["$text"] = {$search:search};
+			aggregation.push({"$sort":{"score":{$meta:"textScore"}}});
+		}
 		
 		if (category != "Toutes")
 			query.category = category;
@@ -105,7 +109,9 @@ app.post('/boutique', function(request, response) {
 				query.price = {"$gte":100};
 		}
 		
-		coll.find(query).toArray(function(e, docs) {
+		aggregation[0]["$match"] = query;
+		
+		coll.aggregate(aggregation).toArray(function(e, docs) {
 			assert.equal(null, e);
 			
 			coll.aggregate([
