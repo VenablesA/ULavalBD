@@ -81,7 +81,7 @@
                         <select class="form-control m-b" name="category">
                             <option value="Toutes" <% if (selectedCategory == "Toutes") { %>selected <% } %>> Toutes </option>
                             <% categories.forEach(function (category) { %>
-                            <option value="<%= category.category %>" <% if (selectedCategory == category.category) { %>selected <% } %>> <%= category.category (category.count) %> </option>
+                            <option value="<%= category.category %>" <% if (selectedCategory == category.category) { %>selected <% } %>> <%= category.category%> (<%= category.count %>) </option>
                             <% }) %>
                         </select><br>
                         <input type="radio" name="price" value="1" <% if (selectedPrice == 1){ %> checked="checked" <% } %> > Tous les prix <br>
