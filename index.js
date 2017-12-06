@@ -118,7 +118,7 @@ app.post('/boutique', function(request, response) {
 				response.render('pages/boutique', {
 					"items" : docs, 
 					"categories": categories,
-					"search":"",
+					"search":search,
 					"selectedCategory": category,
 					"selectedPrice": price
 				});
