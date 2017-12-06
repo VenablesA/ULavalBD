@@ -101,6 +101,13 @@
                             <span class="col-sm-6 pull-left"> Taxes : </span><span class="col-sm-6 pull-right"><%= Math.round(item.price * qty * 0.14975 * 100)/100 %> $</span>
                             <span class="col-sm-6 pull-left"> <strong>Montant tolal :</strong></span><span class="col-sm-6 pull-right"><strong><%= item.price *qty + Math.round(item.price * qty * 0.14975 * 100)/100 %> $</strong></span>
                         </div>
+                        <div class="col-lg-12">
+                            <form role="form" method="get" action="boutique">
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary" ><i class="fa fa-arrow-circle-o-right"></i> Continuer le magasinage</button>
+                                    </div>
+                                </form>
+                        </div>
                     </div>
                 </div>
             </div>
